@@ -1,0 +1,3 @@
+class TextTask < Task
+  
+end
