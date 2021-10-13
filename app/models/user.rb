@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   has_many :lists
 
-  EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.freeze
+  EMAIL_REGEX = /\A[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\z/i.freeze
 
   validates :username, presence: true, uniqueness: true, length: { in: 3..20 }
   validates :email, presence: true, uniqueness: true, format: EMAIL_REGEX
