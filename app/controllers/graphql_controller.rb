@@ -9,6 +9,7 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
+      session: session,
       current_user: current_user
     }
     result = TodoGraphqlSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
@@ -19,6 +20,25 @@ class GraphqlController < ApplicationController
   end
 
   private
+
+  def current_user
+    return nil if decoded_token.blank? || DateTime.parse(decoded_token['expires_at']) < Time.zone.now
+
+    User.find_by(id: decoded_token['user_id'])
+  rescue StandardError
+    nil
+  end
+
+  def decoded_token
+    @decoded_token ||= if request.headers['Authorization']
+                         authorization_header = request.headers['Authorization']
+                         token = authorization_header.split('Bearer ').last
+                         secret = Rails.application.credentials.jwt_secret_key
+                         JWT.decode(token, secret, true, { algorithm: 'HS256' }).first
+                       else
+                         {}
+                       end
+  end
 
   # Handle variables in form data, JSON body, or a blank value
   def prepare_variables(variables_param)
