@@ -7,11 +7,13 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
-    # TODO: remove me
-    field :lists, [Types::List], null: false, description: "An example field added by the generator" 
+    field :lists, [Types::List], null: false, description: 'Gets all lists for a user'
+    field :list, Types::List, null: false, description: 'Gets list by id' do
+      argument :list_id, ID, required: true
+    end
 
-    def lists
-      current_user.lists
+    def list(list_id:)
+      current_user.lists.find_by(id: list_id)
     end
   end
 end
