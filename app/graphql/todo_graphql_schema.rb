@@ -2,6 +2,11 @@ class TodoGraphqlSchema < GraphQL::Schema
   mutation(Types::MutationType)
   query(Types::QueryType)
 
+  def self.unauthorized_object(error)
+    # Add a top-level error to the response instead of returning nil:
+    raise GraphQL::ExecutionError, "#{error.type.graphql_name} Unauthorized. Please Login First"
+  end
+
   # Union and Interface Resolution
   def self.resolve_type(abstract_type, obj, ctx)
     # TODO: Implement this function
