@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
   belongs_to :list
 
-  validates_presence_of :title
+  scope :user_owned, ->(user) { where(list: user.lists) }
 end

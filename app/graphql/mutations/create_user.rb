@@ -2,7 +2,7 @@ module Mutations
   class CreateUser < Mutations::BaseMutation
     argument :user, Types::Input::CreateUser, required: true
 
-    field :user, Types::User, null: true, require_logged_in: false
+    field :user, Types::UserType, null: true, require_logged_in: false
 
     def resolve(user:)
       user_params = Hash user

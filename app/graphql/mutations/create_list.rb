@@ -2,7 +2,7 @@ module Mutations
   class CreateList < Mutations::BaseMutation
     argument :list, Types::Input::CreateList, required: true
 
-    field :list, Types::List, null: true
+    field :list, Types::ListType, null: true
 
     def resolve(list:)
       list_params = Hash list

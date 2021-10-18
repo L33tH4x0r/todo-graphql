@@ -2,7 +2,7 @@ module Mutations
   class LoginUser < Mutations::BaseMutation
     argument :login, Types::Input::Login, required: true
 
-    field :user, Types::User, null: true, require_logged_in: false
+    field :user, Types::UserType, null: true, require_logged_in: false
     field :token, String, null: true, require_logged_in: false
 
     def resolve(login:)

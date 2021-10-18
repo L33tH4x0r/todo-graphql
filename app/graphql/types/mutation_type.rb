@@ -8,5 +8,8 @@ module Types
     
     field :create_list, mutation: Mutations::CreateList,
       description: 'Creates a list for a logged in user'
+    
+    field :create_task, mutation: Mutations::CreateTask,
+      description: 'Creates a task for a list'
   end
 end

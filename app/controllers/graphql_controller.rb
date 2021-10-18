@@ -22,7 +22,6 @@ class GraphqlController < ApplicationController
   private
 
   def current_user
-    debugger
     return nil if decoded_token.blank? || DateTime.parse(decoded_token['expires_at']) < Time.zone.now
 
     User.find_by(id: decoded_token['user_id'])

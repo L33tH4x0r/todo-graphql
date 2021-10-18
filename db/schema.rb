@@ -27,10 +27,10 @@ ActiveRecord::Schema.define(version: 2021_10_11_204941) do
     t.datetime "ends_at"
     t.boolean "completed", default: false
     t.string "type"
-    t.bigint "list_id_id"
+    t.bigint "list_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["list_id_id"], name: "index_tasks_on_list_id_id"
+    t.index ["list_id"], name: "index_tasks_on_list_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
