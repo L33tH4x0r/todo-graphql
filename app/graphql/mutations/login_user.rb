@@ -7,10 +7,11 @@ module Mutations
 
     def resolve(login:)
       login_params = Hash login
-      user = User.where(username: login_params[:username]).or(User.where(email: login_params[:username])).first
+      user = User.where(username: login_params[:username])
+                 .or(User.where(email: login_params[:username])).first
       if user&.authenticate(login_params[:password])
         secret = Rails.application.credentials.jwt_secret_key
-        token = JWT.encode({ user_id: user.id, expires_at: 1.hour.from_now }, secret, 'HS256')
+        token = JWT.encode({ user_id: user.id, expires_at: 7.days.from_now }, secret, 'HS256')
 
         { user: user, token: token }
       else
